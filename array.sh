@@ -1,16 +1,16 @@
 #!/bin/bash
+
 # Place your code here
 
-folders=$1
-names=""
-
+count=1
+phrase="folders"
 for i in {a..z}; do
-  mkdir "folder_$i"
-  names="$names folder_$i,"
-  folders=$((folders-1))
-  if [ "$folders" -eq 0 ]; then
-    break
-  fi
+    [[ $count -gt $1 ]] && break
+    mkdir folder_"$i"
+    ((count++))
 done
 
-echo "$1 folders created:$names"
+if [[ $1 -eq 1 ]]; then phrase="folder"
+fi
+
+echo "$phrase created: $(ls -d folder* | grep -v / | xargs echo | sed 's/ /, /g')"
